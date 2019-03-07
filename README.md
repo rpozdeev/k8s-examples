@@ -1,4 +1,4 @@
-# k8s-example
+# k8s-examples
 Практические примеры работы с дистрибутивом Kubernetes.
 
 В данных примерах используется docker образ melhiades/simpleapi:latest. Это простой api сервер. Возвращающие значения:
