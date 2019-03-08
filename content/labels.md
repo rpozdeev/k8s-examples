@@ -5,7 +5,7 @@ Labels (метки) - это механизм организации и связ
 Давайте создадим pod, который будет иметь label  `env: development` [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod.yaml)
 
 ```bash
-> $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod.yaml                                                                     
+> $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod.yaml                                   
 pod/apiserver created
 
 > $ kubectl get pods --show-labels                                                                                  
@@ -31,7 +31,7 @@ apiserver   1/1     Running   0          5m13s   env=development,owner=rpozdeev
 При помощи `selector` можно искать нужные pod по `labels`. Для примера давайте создадим еще один pod с следующими labels `env: production, owner: rpozdeev`. [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod-production.yaml)
 
 ```bash
-> $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod-production.yaml          
+> $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod-production.yaml
 pod/apiserver-prod created
 
 > $ kubectl get pods --show-labels                                                                                  
