@@ -9,5 +9,6 @@
 | /info    | Hello, Kubernetes!!! |
 
 - [pod](content/pod.md)
+- [labels](content/labels.md)
 
 Все эти примеры можно выполнить локально у себя на компьютере воспользовавшись дистрибутивом Minikube. Как его установить можно почитать [здесь](https://kubernetes.io/docs/tasks/tools/install-minikube/).
