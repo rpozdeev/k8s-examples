@@ -23,7 +23,7 @@ IP:                 172.17.0.6
 
 ```bash
 $ curl http://172.17.0.6:5000/info
-"Hello, Kubernetes!!!"
+"Hello, Kubernetes!!!, version: 1.0"
 ```
 
 Чтобы удалить pod необходимо выполнить ```kubectl delete pods apiserver```
@@ -46,7 +46,7 @@ twocontainers   2/2     Running   0          7s
 ```bash
 > $ kubectl exec twocontainers -c client -ti sh                                                                         
 / # curl http://localhost:5000/info
-"Hello, Kubernetes!!!"
+"Hello, Kubernetes!!!, version: 1.0"
 ```
 
 Что-бы указать ограничения по использованию CPU и памяти (memory) pod'ом, можно воспользоваться директивой `resources`. (в данной конфигурации лимит `memory: 128Mi/cpu: 0.5` запрошенные ресурсы `memory: 64Mi/cpu: 0.25`)  [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/limits-pod.yaml)
