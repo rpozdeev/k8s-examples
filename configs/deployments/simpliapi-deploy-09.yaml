@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: apiserver
-          image: melhiades/simpleapi:latest
+          image: melhiades/simpleapi:0.9
           ports:
             - containerPort: 5000
-          env:
-          - name: SIMPLE_API_VERSION
-            value: "0.9"
+        - name: client
+          image: melhiades/alpine-curl:latest
+          command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 10000']
