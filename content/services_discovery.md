@@ -70,7 +70,10 @@ pod "client" deleted
 
 > $ kubectl delete pods -n other client
 pod "client" deleted
-                                      
+
+> $ kubectl delete services simpleapi-service
+service "simpleapi-service" deleted
+
 > $ kubectl delete namespaces other
 namespace "other" deleted
 ```

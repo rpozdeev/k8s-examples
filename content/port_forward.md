@@ -28,6 +28,16 @@ Handling connection for 8080
 "Hello, Kubernetes!!!, version: 1.0"
 ```
 
+Теперь можно удалить `ReplicaSet` и `Services`:
+
+```bash
+> $ kubectl delete services simpleapi-service
+service "simpleapi-service" deleted
+
+> $ kubectl delete replicasets simpleapi-rs
+replicaset.extensions "simpleapi-rs" deleted
+```
+
 `Port Forward` предназначено только для разработки и экспериментов с приложением. Для промышленной эксплуатации такой способ не подходит.
 
 Дополнительную информацию о `Port Forward` можно почитать [здесь](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
