@@ -11,6 +11,7 @@
 - [pod](content/pod.md)
 - [labels](content/labels.md)
 - [ReplicaSet (ReplicationController)](content/replicaset.md)
+- [deployments](content/deployments.md)
 
 Все эти примеры можно выполнить локально у себя на компьютере воспользовавшись дистрибутивом Minikube. Как его установить можно почитать [здесь](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 

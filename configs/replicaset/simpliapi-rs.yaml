@@ -1,24 +1,21 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-  name: simpleapi-deploy
+  name: simpleapi-rs
   labels:
     app: simpleapi
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: simpleapi
+      app: backend
   template:
     metadata:
       labels:
-        app: simpleapi
+        app: backend
     spec:
       containers:
         - name: apiserver
           image: melhiades/simpleapi:latest
           ports:
             - containerPort: 5000
-        - name: client
-          image: melhiades/alpine-curl:latest
-          command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 10000']
