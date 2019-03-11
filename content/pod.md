@@ -1,14 +1,14 @@
 **Pod**
 
-Pod - коллекция контейнеров, использующие одно пространство имен (namespace), единое сетевое адресное пространство и имеют доступ к общему локальному хранилищу узла (node). Все контейнеры в pod размещаются на одном узле (node).
+Pod - коллекция контейнеров, использующие одно пространство имен (namespace), единое сетевое адресное пространство и имеют доступ к общему локальному хранилищу узла (node). Все контейнеры в Pod размещаются на одном узле (node).
 
-Чтобы создать и запустить pod использую docker образ `melhiades/simpleapi:latest` необходимо выполнить следующую команду:
+Чтобы создать и запустить Pod использую docker образ `melhiades/simpleapi:latest` необходимо выполнить следующую команду:
 
 ```bash
 kubectl run --generator=run-pod/v1 apiserver --image=melhiades/simpleapi:latest
 ```
 
-Убедимся, что pod заработал:
+Убедимся, что Pod заработал:
 
 ```bash
 > $ kubectl get pods                                                                                                                
@@ -19,18 +19,18 @@ apiserver   1/1     Running   0          4s
 IP:                 172.17.0.6
 ```
 
-Внутри кластера этот pod доступен по адресу `172.17.0.6`. Мы можем подключиться по ssh к узлу и проверить работу сервера (для minikube воспользуйтесь командой `minikube ssh`). 
+Внутри кластера этот Pod доступен по адресу `172.17.0.6`. Мы можем подключиться по ssh к узлу и проверить работу сервера (для minikube воспользуйтесь командой `minikube ssh`). 
 
 ```bash
 $ curl http://172.17.0.6:5000/info
 "Hello, Kubernetes!!!, version: 1.0"
 ```
 
-Чтобы удалить pod необходимо выполнить ```kubectl delete pods apiserver```
+Чтобы удалить Pod необходимо выполнить ```kubectl delete pods apiserver```
 
 **Использование файла конфигурации**
 
-Pod так же можно создавать используя файлы конфигурации. В этом примере pod содержит два контейнера simpleapi и alpine-curl. [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/pod.yaml)
+Pod так же можно создавать используя файлы конфигурации. В этом примере Pod содержит два контейнера simpleapi и alpine-curl. [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/pod.yaml)
 
 ```bash
 > $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/pod.yaml
@@ -49,7 +49,7 @@ twocontainers   2/2     Running   0          7s
 "Hello, Kubernetes!!!, version: 1.0"
 ```
 
-Что-бы указать ограничения по использованию CPU и памяти (memory) pod'ом, можно воспользоваться директивой `resources`. (в данной конфигурации лимит `memory: 128Mi/cpu: 0.5` запрошенные ресурсы `memory: 64Mi/cpu: 0.25`)  [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/limits-pod.yaml)
+Что-бы указать ограничения по использованию CPU и памяти (memory) Pod'ом, можно воспользоваться директивой `resources`. (в данной конфигурации лимит `memory: 128Mi/cpu: 0.5` запрошенные ресурсы `memory: 64Mi/cpu: 0.25`)  [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/limits-pod.yaml)
 
 ```bash
 > $ kubectl apply -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/pod/limits-pod.yaml
@@ -69,11 +69,13 @@ Containers:
 
 Узнать больше информации об ограничении ресурсов можно из документации [здесь](https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/) и [здесь](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/).
 
-Что удалить все созданные pod нужно выполнить команды:
+Что удалить все созданные Pod нужно выполнить команды:
 
 ```bash
 > $ kubectl delete pods twocontainers
 > $ kubectl delete pods limits-pod
 ```
 
-Создавать pod в Kubernetes очень легко, но нужно помнить, что такой подход имеет серьезные ограничение в обслуживании. Необходимо самостоятельно заботиться о работе контейнеров в случае сбоев, а так же при масштабировании. Лучшим способом контроля работы pod, это использовать контроллеры. Контроллеры дадут гораздо больший контроль над жизненным циклом pod, включая развертывание новой версии.
+Создавать Pod в Kubernetes очень легко, но нужно помнить, что такой подход имеет серьезные ограничение в обслуживании. Необходимо самостоятельно заботиться о работе контейнеров в случае сбоев, а так же при масштабировании. Лучшим способом контроля работы Pod, это использовать контроллеры. Контроллеры дадут гораздо больший контроль над жизненным циклом Pod, включая развертывание новой версии.
+
+Дополнительную информацию о Pod можно почитать [здесь](https://kubernetes.io/docs/concepts/workloads/pods/pod/).

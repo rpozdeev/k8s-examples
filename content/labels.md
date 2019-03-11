@@ -2,7 +2,7 @@
 
 Labels (метки) - это механизм организации и связывания всех объектов Kubernetes. Labels представляет собой пару ключ:значение `env: development`. Labels имеют некоторые ограничения, прочитать об этом можно [тут](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 
-Давайте создадим pod, который будет иметь label  `env: development` [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod.yaml)
+Давайте создадим Pod, который будет иметь label  `env: development` [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod.yaml)
 
 ```bash
 > $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod.yaml                                   
@@ -15,7 +15,7 @@ apiserver   1/1     Running   0          18s   env=development
 
 Параметр `—show-labels` выводит значения всех меток в дополнительном столбце.
 
-Так же можно добавить labels к уже работающему pod:
+Так же можно добавить labels к уже работающему Pod:
 
 ```bash
 > $ kubectl label pods apiserver owner=rpozdeev                                                                    
@@ -28,7 +28,7 @@ apiserver   1/1     Running   0          5m13s   env=development,owner=rpozdeev
 
 **Label selectors**
 
-При помощи `selector` можно искать нужные pod по `labels`. Для примера давайте создадим еще один pod с следующими labels `env: production, owner: rpozdeev`. [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod-production.yaml)
+При помощи `selector` можно искать нужные Pod по `labels`. Для примера давайте создадим еще один Pod с следующими labels `env: production, owner: rpozdeev`. [конфигурация](https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod-production.yaml)
 
 ```bash
 > $ kubectl create -f https://raw.githubusercontent.com/rpozdeev/k8s-examples/master/configs/labels/pod-production.yaml
@@ -40,7 +40,7 @@ apiserver        1/1     Running   0          12m   env=development,owner=rpozde
 apiserver-prod   1/1     Running   0          8s    env=production,owner=rpozdeev
 ```
 
-Чтобы использовать `labels` для фильтрации pod необходимо использовать параметр `--selector` или `-l`.
+Чтобы использовать `labels` для фильтрации Pod необходимо использовать параметр `--selector` или `-l`.
 
 ```bash
 > $ kubectl get pods --selector owner=rpozdeev                                                                      
@@ -53,7 +53,7 @@ NAME             READY   STATUS    RESTARTS   AGE
 apiserver-prod   1/1     Running   0          3m41s
 ```
 
- Селекторы могут искать pod по нескольким `labels`. А также использовать операторы  in, &&, =, ==, !=. Подробнее [тут](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+ Селекторы могут искать Pod по нескольким `labels`. А также использовать операторы  in, &&, =, ==, !=. Подробнее [тут](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 
 ```bash
 > $ kubectl get pods -l 'env in (production, development)'                                                                
@@ -66,7 +66,7 @@ NAME             READY   STATUS    RESTARTS   AGE
 apiserver-prod   1/1     Running   0          8m3s
 ```
 
-Другие команды в Kubernetes так же поддерживают селекторы. В качестве примера мы можем удалить создание pod при помощи селектора.
+Другие команды в Kubernetes так же поддерживают селекторы. В качестве примера мы можем удалить создание Pod при помощи селектора.
 
 ```bash
 > $ kubectl delete pods -l 'env in (production, development)                                                                                                                                                           
@@ -81,4 +81,6 @@ pod "apiserver" deleted
 > $ kubectl delete pods apiserver
 ```
 
-Важно заметить, что `labels` не ограничиваются работой с pod, их можно применять к разным объектам, например к `node` или `services`.
+Важно заметить, что `labels` не ограничиваются работой с Pod, их можно применять к разным объектам, например к `node` или `services`.
+
+Дополнительную информацию о `labels` можно почитать [здесь](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).

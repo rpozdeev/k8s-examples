@@ -1,12 +1,12 @@
 **ReplicaSet/ReplicationController**
 
-ReplicaSet - контроллер, который поддерживает стабильный набор работающих pod в любой момент времени. Он часто используется, чтобы гарантировать наличие определенного количество идентичных pod.
+ReplicaSet - контроллер, который поддерживает стабильный набор работающих Pod в любой момент времени. Он часто используется, чтобы гарантировать наличие определенного количество идентичных Pod.
 
 replicaSet является следующей версией ReplicationController. Они ведут себя одинаково и предназначены для одной и той же цели, за исключением того, что ReplicationController не поддерживает селекторы на основе набора.
 
 Т.к. рекомендуется использовать ReplicaSet, ReplicationController рассматриваться не будет.
 
-Давайте создадим `replicaset` который разворачивать две реплики pod.
+Давайте создадим `replicaset` который разворачивать две реплики Pod.
 
 ```bash
 > $ kubectl create -f ./configs/replicaset/simpliapi-rs.yaml
@@ -56,7 +56,7 @@ Events:
   Normal  SuccessfulCreate  2d20h  replicaset-controller  Created pod: simpleapi-rs-fftmv
 ```
 
-Здесь нужно обратить внимание на `selector`. В нем нужно указывать `labels` pod, который необходимо отреплицировать ( `app=backend`).
+Здесь нужно обратить внимание на `selector`. В нем нужно указывать `labels` Pod, который необходимо отреплицировать ( `app=backend`).
 
 Данный контроллер вы будете использовать редко. Рекомендуется использовать `Deployments` т.к. В нем реализован весь функционал `ReplicaSet` контроллера плюс дополнительные возможности по работе с `pod`.
 
@@ -67,3 +67,4 @@ Events:
 replicaset.apps "simpleapi-rs" deleted
 ```
 
+Дополнительную информацию о `ReplicaSet` можно почитать [здесь](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/).

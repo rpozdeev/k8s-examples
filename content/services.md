@@ -1,8 +1,8 @@
 **Servises**
 
-Services - это абстракция предоставляющая `pod` виртуальный IP адрес (VIP). Pod могут создаваться и удаляться. ReplicaSet может динамически создавать и удалять `pod` (при включенном auto scaling). Каждый раз `pod` будет получать новый ip адрес. Данная служба позволяет надежно подключаться к контейнерам работающих внутри `pod`. VIP это не фактический ip адрес, подключены к сетевому интерфейсу, цель данной службы перенаправить трафик на один или несколько `pod`, а так же контролировать доступ при помощи политик. Обновлением соответствия VIP между Pod занимается kube-proxy.
+Services - это абстракция предоставляющая Pod виртуальный IP адрес (VIP). Pod могут создаваться и удаляться. ReplicaSet может динамически создавать и удалять Pod (при включенном auto scaling). Каждый раз Pod будет получать новый ip адрес. Данная служба позволяет надежно подключаться к контейнерам работающих внутри Pod. VIP это не фактический ip адрес, подключены к сетевому интерфейсу, цель данной службы перенаправить трафик на один или несколько Pod, а так же контролировать доступ при помощи политик. Обновлением соответствия VIP между Pod занимается kube-proxy.
 
-Давай создадим `replicaset` и `services`:
+Давай создадим `ReplicaSet` и `Services`:
 
 ```bash
 > $ kubectl create -f ./configs/services/simpliapi-rs.yaml
@@ -12,7 +12,7 @@ replicaset.apps/simpleapi-rs created
 service/simpleapi-service created
 ```
 
-Теперь у нас есть управляемый `pod` c IP адресом 172.17.0.6:
+Теперь у нас есть управляемый Pod c IP адресом 172.17.0.6:
 
 ```bash
 > $ kubectl get pods -l app=backend
@@ -55,7 +55,7 @@ $
 
 Однако, такой способ подключения не рекомендуется, т.к. IP адрес Pod может измениться в будущем. 
 
-Давайте посмотрим подробнее не `services` который мы создали.
+Давайте посмотрим подробнее не `Services` который мы создали.
 
 ```bash
 > $ kubectl get services
@@ -78,7 +78,7 @@ Session Affinity:  None
 Events:            <none>
 ```
 
-В данном примере сервис отслуживает `pod` при помощи метки `app=backend`.
+В данном примере сервис отслуживает Pod при помощи метки `app=backend`.
 
 Теперь внутри кластера мы можем получить доступ к сервису по ip адресу 10.102.82.168:
 
@@ -95,14 +95,14 @@ $ curl http://10.102.82.168/info
 "Hello, Kubernetes!!!, version: 1.0"
 ```
 
-Внутри `services` работает iptables, это длинный список правил, который сообщает ядру Linux, что делать с определенным ip пакетом. Давайте взглянем на эти правила:
+Внутри `Services` работает iptables, это длинный список правил, который сообщает ядру Linux, что делать с определенным ip пакетом. Давайте взглянем на эти правила:
 
 ```bash
 $ sudo iptables-save | grep simpleapi
 -A KUBE-SERVICES -d 10.102.82.168/32 -p tcp -m comment --comment "default/simpleapi-service: cluster IP" -m tcp --dport 80 -j KUBE-SVC-ZDNBUNH5UBM2YUVP
 ```
 
-Давайте теперь увеличим реплику до двух Pod и посмотрим на `services`:
+Давайте теперь увеличим реплику до двух Pod и посмотрим на `Services`:
 
 ```bash
 > $ kubectl scale --replicas=2 replicaset simpleapi-rs
@@ -128,9 +128,9 @@ Session Affinity:  None
 Events:            <none>
 ```
 
-Как мы видим в `services` добавился ip адрес второго `pod`. Теперь трафик будет равномерно распределяться между этими `pod`.
+Как мы видим в `Services` добавился ip адрес второго Pod. Теперь трафик будет равномерно распределяться между этими Pod.
 
-Теперь можно удалить `ReplicaSet` и `services`
+Теперь можно удалить `ReplicaSet` и `Services`:
 
 ```bash
 > $ kubectl delete services simpleapi-service
@@ -140,3 +140,4 @@ service "simpleapi-service" deleted
 replicaset.extensions "simpleapi-rs" deleted
 ```
 
+Дополнительную информацию о `Services` можно почитать [здесь](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/).
