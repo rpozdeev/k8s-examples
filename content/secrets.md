@@ -46,12 +46,31 @@ tmpfs on /tmp/apikey type tmpfs (ro,relatime)
 AAAHHHRRRNNN1892
 ```
 
+Мы можем попробовать развернуть Pod и передать этот секрет через переменные окружения:
+
+```bash
+> $ echo -n "AAAHHHRRRNNN1892" | base64
+QUFBSEhIUlJSTk5OMTg5Mg==
+
+> $ kubectl create -f ./configs/secrets/secrets.yaml
+secret/api-secret created
+                                                                                                                                                
+> $ kubectl create -f ./configs/secrets/pod-env.yaml
+pod/secret-env created
+
+> $ kubectl exec -ti secret-env -- sh
+/ # echo $SECRET_API
+AAAHHHRRRNNN1892
+```
+
 Теперь можно удалит развернутые объекты:
 
 ```bash
-> $ kubectl delete secrets/apikey pods/secret
+> $ kubectl delete secrets/apikey secrets/api-secret pods/secret-env
 secret "apikey" deleted
+secret "api-secret" deleted
 pod "secret" deleted
+pod "secret-env" deleted
 ```
 
 Дополнительную информацию о `Secrets` можно почитать [здесь](https://kubernetes.io/docs/concepts/configuration/secret/).
