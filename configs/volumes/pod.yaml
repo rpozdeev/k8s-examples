@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volumes
+spec:
+  containers:
+    - name: client1
+      image: melhiades/alpine-curl:latest
+      command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 10000']
+      volumeMounts:
+        - mountPath: "/tmp/data1"
+          name: data
+
+    - name: client2
+      image: melhiades/alpine-curl:latest
+      command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 10000']
+      volumeMounts:
+        - mountPath: "/tmp/data2"
+          name: data
+
+  volumes:
+    - name: data
+      emptyDir: {}
