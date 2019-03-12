@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-pvc
+  labels:
+    app: simpleapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simpleapi
+  template:
+    metadata:
+      labels:
+        app: simpleapi
+    spec:
+      containers:
+        - name: client
+          image: melhiades/alpine-curl:latest
+          command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 10000']
+          volumeMounts:
+            - mountPath: '/tmp/persistent'
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: testclaim
