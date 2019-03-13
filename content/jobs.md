@@ -72,4 +72,4 @@ Events:
 job.batch "job-count" deleted
 ```
 
-Дополнительную информацию о Job'ах можно почитать [здесь](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/).
+Дополнительную информацию о Job'ах можно почитать [здесь](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/).  Так же существует более продвинутые техники выполнения заданий, например [work queue](https://kubernetes.io/docs/tasks/job/coarse-parallel-processing-work-queue/) или выполнение по расписанию [cron job](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/).
