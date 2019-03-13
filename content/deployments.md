@@ -129,3 +129,4 @@ deployment.extensions "simpleapi-deploy" deleted
 ```
 
 Дополнительную информацию о `Deployments` можно почитать [здесь](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logger-count
+spec:
+  containers:
+  - name: client
+    image: melhiades/alpine-curl:latest
+    command: ['sh', '-c', 'for i in 9 8 7 6 5 4 3 2 1; do echo $i; done']
